@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Nginep from './component/nginep';
+import MenuAtas from './component/menu';
+import Header from './component/header';
 
-function App() {
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      homestays: [],
+      allHomestays: [],
+      selectedHomestay: null,
+      search: ""
+    };
+  }
+
+  componentDidMount() {
+    fetch("https://raw.githubusercontent.com/algosigma/js-reactjs/master/homestays.json")
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({
+          homestays: data,
+          allHomestays: data
+        });
+      })
+  }
+
+
+  render() {
+    
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header />
+      <MenuAtas />
+      {
+        this.state.homestays.map((homestays) => {
+          return <Nginep
+                  key={homestays.id}
+                  homestays={homestays}
+                  />
+        })
+      }
+    </React.Fragment>
   );
+  }
 }
 
 export default App;
