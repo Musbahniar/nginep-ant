@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Menu, Icon  } from 'antd';
+import { Menu, Icon, Row  } from 'antd';
 
 const { SubMenu } = Menu;
+
 
 class MenuAtas extends Component {
   state = {
@@ -17,7 +18,12 @@ class MenuAtas extends Component {
   
   render() {
   return (
-    <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+    <Row justify="center">
+    <Menu 
+      onClick={this.handleClick} 
+      selectedKeys={[this.state.current]} 
+      mode="horizontal"
+      >
         <Menu.Item key="mail">
           <Icon type="home" />
           Beranda
@@ -45,6 +51,7 @@ class MenuAtas extends Component {
           </a>
         </Menu.Item>
     </Menu>
+    </Row>
     );
   }
 }

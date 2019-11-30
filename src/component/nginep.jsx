@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
-import { Row, Col, Card  } from 'antd';
+import { Row, Col, Card, Skeleton, Switch } from 'antd';
 import './nginep.css';
 
 const { Meta } = Card;
 
-class Nginep extends Component {
 
+class Nginep extends Component {
+  state = {
+    loading: false,
+  };
+
+  onChange = checked => {
+    this.setState({ loading: !checked });
+  };
+
+  handleClick = () => {
+    console.log('click:');
+  }
   render() {
-    const judul = `${this.props.homestays.nama} - Rp. ${this.props.homestays.harga}`
-    const style = {
-      backgroundImage: `url('${this.props.homestays.fotoUrl}')`
-    };
+    const { loading } = this.state;
 
     return (
       <React.Fragment>
-        <br/>
-        <Row>
-          <Col span={12}>
-            {/* <div className="homestay-foto" style={style}></div>
-            <div className="homestay-judul">{judul}</div> */}
-            <Card
-    hoverable
-    style={{ width: 240 }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-  >
-    <Meta title="Europe Street beat" description="www.instagram.com" />
-  </Card>
-          </Col>
-          <Col span={12}>col-12</Col>
+        <Row gutter={[8, 8]}>
+          {this.props.homestays.map((homestays) => {
+            const judul = `Rp. ${homestays.harga}/perMalam`
+            return (
+              <Col span={12} key={homestays.id} >
+                <Card hoverable loading={loading} onClick={this.handleClick}>
+                  <div className="custom-image">
+                    <img alt="example" width="100%" src={homestays.fotoUrl} />
+                  </div>
+                  <Meta title={homestays.nama} description={judul} />
+                </Card>
+              </Col>
+            )
+          })
+          }
+          {/* this.setState({ loading: false })  */}
         </Row>
       </React.Fragment>
     );

@@ -18,3 +18,14 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.custom-image img {
+  display: block;
+  height: 140px;
+}
+.custom-card {
+  padding: 10px 16px;
+}
+.custom-card p {
+  color: #999;
+}
